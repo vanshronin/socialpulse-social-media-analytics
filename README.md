@@ -30,7 +30,7 @@ Excel (initial inspection), MySQL (audit, cleaning, analysis), Power BI Desktop 
 
 ## Method
 
-1. **Audit the raw data.** Loaded the CSV unchanged into MySQL as text (`raw_posts`) and ran checks for missing values, duplicates, categories, ranges, dates, impossible values and metric logic.
+1. **Audit the raw data.** Loaded the CSV unchanged into MySQL as text (`posts_raw.csv`) and ran checks for missing values, duplicates, categories, ranges, dates, impossible values and metric logic.
 2. **Define metrics.** Wrote a metric dictionary. The headline engagement rate is the pooled rate (total reactions ÷ total views), not the average of post-level rates.
 3. **Build a tidy table.** `posts_clean` has proper numeric and date types, a `reactions` column, and an `is_flagged` column for impossible rows. The raw table is never changed.
 4. **Analyse in SQL.** Platform, content type, topic, month, viral vs non-viral, and top posts.
@@ -54,7 +54,7 @@ Excel (initial inspection), MySQL (audit, cleaning, analysis), Power BI Desktop 
 ## Repository structure
 
 ```
-data/raw/        original CSV, unchanged
+data/raw/        posts_raw.csv
 data/clean/      posts_clean.csv (exported from MySQL)
 sql/             audit, table creation and analysis queries
 docs/            data quality report, metric dictionary, insights summary
@@ -64,8 +64,7 @@ screenshots/     dashboard image
 
 ## SQL scripts
 
-Run in this order in MySQL Workbench: create the raw table and import the CSV, run the data-quality audit, then `post_clean.sql`, then the analysis queries:
-`platform_performance.sql`, `content_type_performance.sql`, `content_type_perf_halfyearly.sql`, `topic_performance.sql`, `monthly_trend.sql`, `viral_vs_nonviral.sql`, `top_posts.sql`.
+Run in this order in MySQL Workbench: db_create.sql (creates the database and raw table; then import the CSV), data_quality_audit.sql, post_clean.sql, then the analysis queries: platform_performance.sql, content_type_performance.sql, content_type_perf_halfyearly.sql, topic_performance.sql, monthly_trend.sql, viral_vs_nonviral.sql, top_posts.sql.
 
 ## Documents
 
